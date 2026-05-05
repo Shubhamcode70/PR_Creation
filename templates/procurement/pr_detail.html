@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ pr.pr_number }} ({{ pr.get_status_display }})</h2>
+<p>Type: {{ pr.pr_type }}</p>
+<p>Purpose: {{ pr.purpose_of_procurement }}</p>
+{% if can_approve %}
+<p><a href="{% url 'pr_approve' pr.pk %}">Open Approval Screen</a></p>
+{% endif %}
+<h3>Items</h3>
+<table border="1">
+<tr><th>No.</th><th>Short Text</th><th>Qty</th><th>UOM</th><th>Valuation Price</th><th>Total</th></tr>
+{% for item in pr.items.all %}
+<tr><td>{{ item.item_no }}</td><td>{{ item.short_text }}</td><td>{{ item.quantity }}</td><td>{{ item.uom }}</td><td>{{ item.valuation_price }}</td><td>{{ item.total_value }}</td></tr>
+{% endfor %}
+</table>
+<h3>Approval History</h3>
+<ul>
+{% for action in pr.approval_actions.all %}
+<li>{{ action.get_action_display }} by {{ action.acted_by.username }} at {{ action.acted_at }} - {{ action.note }}</li>
+{% empty %}
+<li>No approval actions yet.</li>
+{% endfor %}
+</ul>
+{% endblock %}
