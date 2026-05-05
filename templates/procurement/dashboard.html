@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>My Purchase Requisitions</h2>
+<a href="{% url 'pr_create' %}">Create PR</a>
+<ul>
+{% for pr in prs %}
+<li><a href="{% url 'pr_detail' pr.pk %}">{{ pr.pr_number }}</a> - {{ pr.get_status_display }}</li>
+{% empty %}
+<li>No PRs yet.</li>
+{% endfor %}
+</ul>
+{% endblock %}

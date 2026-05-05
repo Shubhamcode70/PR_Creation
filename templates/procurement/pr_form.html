@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Create Purchase Requisition</h2>
+<form method="post">{% csrf_token %}
+{{ form.as_p }}
+{{ formset.management_form }}
+<table border="1">
+<tr>{% for field in formset.empty_form.visible_fields %}<th>{{ field.label }}</th>{% endfor %}<th>Delete</th></tr>
+{% for f in formset %}
+<tr>{% for field in f.visible_fields %}<td>{{ field }}</td>{% endfor %}<td>{{ f.DELETE }}</td></tr>
+{% endfor %}
+</table>
+<button type="submit" name="save_draft">Save Draft</button>
+<button type="submit" name="submit">Submit</button>
+</form>
+{% endblock %}
