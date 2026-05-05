@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Approve/Reject {{ pr.pr_number }}</h2>
+<p>Status: {{ pr.get_status_display }}</p>
+<form method="post">{% csrf_token %}
+{{ form.as_p }}
+<button type="submit">Submit Decision</button>
+</form>
+{% endblock %}
